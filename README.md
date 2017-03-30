@@ -7,8 +7,11 @@ run the following commands for testing at ROS indigo ubuntu 14.04.
 ```
 mkdir src
 cd src
-git clone https://github.com/Didi-dataset-explorer
+git clone https://github.com/xiekuncn/Didi-dataset-explorer
 cd ..
+
+sudo apt-get install ros-indigo-catkin
+
 # download all dependencies from rosdep
 rosdep install --from-paths src --ignore-src -i -y
 catkin build
