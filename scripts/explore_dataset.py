@@ -11,6 +11,9 @@ import cv_bridge
 import math
 import tf
 from tf.msg import tfMessage
+import abc
+import numpy as np 
+import numpy.matlib
 
 kSemimajorAxis = 6378137
 kSemiminorAxis = 6356752.3142
@@ -81,10 +84,13 @@ class ExploreDataset():
 
         # the orientation is not valid, as the dataset's readme.md said.
 
-        # t.transform.rotation.x = rtk_msg.pose.pose.orientation.x
-        # t.transform.rotation.y = rtk_msg.pose.pose.orientation.y
-        # t.transform.rotation.z = rtk_msg.pose.pose.orientation.z
-        # t.transform.rotation.w = rtk_msg.pose.pose.orientation.w
+        t.transform.rotation.x = rtk_msg.pose.pose.orientation.x
+        t.transform.rotation.y = rtk_msg.pose.pose.orientation.y
+        t.transform.rotation.z = rtk_msg.pose.pose.orientation.z
+        t.transform.rotation.w = rtk_msg.pose.pose.orientation.w
+        tanTheta = t.transform.rotation.y / t.transform.rotation.x
+        Arctan = np.arctan(tanTheta)
+        t.transform.rotation.angle = Arctan/np.pi*180
 
         tfm = tf.msg.tfMessage([t])
         self.pub_tf.publish(tfm)
