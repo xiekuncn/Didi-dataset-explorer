@@ -90,7 +90,7 @@ class ExploreDataset():
         t.transform.rotation.w = rtk_msg.pose.pose.orientation.w
         tanTheta = t.transform.rotation.y / t.transform.rotation.x
         Arctan = np.arctan(tanTheta)
-        t.transform.rotation.angle = Arctan/np.pi*360
+        t.transform.rotation.angle = Arctan/np.pi*180
 
         tfm = tf.msg.tfMessage([t])
         self.pub_tf.publish(tfm)
